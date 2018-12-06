@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for指令</title>
+    <style>
+        ul,li{list-style: none;}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div class="list">
+            <ul>
+                <!-- v-for遍历数组 -->
+                <!-- 将定义的数组数据放入li元素中 -->
+                <li v-for="num in newsList" v-text="num"></li>
+                <br>
+                <!-- 获取数组的索引值 -->
+                <li v-for="(num,i) in newsList">索引-{{i}}--{{num}}</li>
+                <br>
+                <!-- 数组中有对象 -->
+                <li v-for="(person,i) in infoList">{{i}}号学生姓名:{{person.name}}，年龄:{{person.age}}，性别:{{person.sex}}</li>
+                <!-- 疑问：如果数组中有普通值，又有对象，又包含数组该怎么办？ -->
+                <hr>
+                <!-- v-for遍历对象 -->
+                <!-- 遍历对象的语法是值在前面，键在后面 -->
+                <!-- 这里说要绑定一个key属性，以防止出错，但是什么原因不清楚？ -->
+                <li v-for="(val,key,i) in person" :key="person.id">索引值：{{i}}，键是：{{key}}，值是：{{val}}</li>
+                <hr>
+                <!-- v-for遍历输出数字 -->
+                <li v-for="(num,i) in 100">index:{{i}}--{{num}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                newsList:['HTML5','CSS3','JavaScript','Vue'],
+                infoList:[
+                    {name:'小明',age:18,sex:'男'},
+                    {name:'小红',age:20,sex:'女'},
+                    {name:'小刚',age:21,sex:'男'},
+                    {name:'小李',age:20,sex:'女'}
+                ],
+                // 对象：键/值对形式
+                person:{
+                    id:1,
+                    name:'小红',
+                    age:22,
+                    weight:'45kg',
+                    height:'161cm',
+                    sex:'女'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

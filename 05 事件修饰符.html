@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件修饰符</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        .content{width: 400px;height: 300px;background: red;margin: 50px auto;}
+        .inner{width: 200px;height: 100px;background: red;margin: 50px auto;}
+        .outer{width: 400px;height: 300px;background: blue;margin: 50px auto;}
+
+    </style>
+</head>
+<body>
+    <!-- stop修饰符:阻止事件冒泡
+         prevent修饰符：阻止默认事件
+         once修饰符：只执行一次
+         self修饰符：只能点击自己才能触发 
+    -->
+
+    <div id="main">
+        <div class="content" @click="con">
+            <!-- stop修饰符阻止了事件冒泡，不会触发父元素的事件 -->
+            <input type="button" value=" 点击 " @click.stop="btn">
+        </div>
+        <!-- prevent修饰符阻止了a标签的默认跳转事件 -->
+        <a @click.prevent href="https://blog.csdn.net/bertZuo">My Blog</a>
+        <!-- once修饰符只阻止了一次事件，第二次点击就可以跳转了 -->
+        <a @click.prevent.once="link" href="https://blog.csdn.net/bertZuo">My Blog</a>
+        <!-- self修饰符 -->
+        <!-- 在内层事件上增加self修饰符，在事件冒泡中不触发内层事件 -->
+        <div class="outer" @click="outer">
+            <div class="inner" @click="" @click.self="inner">
+                <input type="button" value="点击" @click="btn">
+            </div>
+        </div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+
+            },
+            methods:{
+                btn:function(){
+                    console.log('点击了按钮')
+                },
+                con:function(){
+                    console.log('点击了content元素')
+                },
+                link:function(){
+                    console.log('点击了a标签')
+                },
+                inner:function(){
+                    console.log('点击了内层的元素')
+                },
+                outer:function(){
+                    console.log('点击了外层的元素')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>以上知识总结实践</title>
+    <style>
+        #main{width: 1000px;height: auto;border: 1px solid #aaa;margin: 50px auto;border-bottom: none;}
+        table{width: 100%;margin: 0 auto}
+        table tr{line-height: 35px;}
+        table tr td{border-bottom: 1px solid #bbb;font-size: 14px;text-indent: 25px;}
+        table tr td a{color: black;text-decoration: none;}
+
+        .text{width: 100px;border: none;}
+        .btn{width: 60px;border: 1px solid #dedede;cursor: pointer;}
+    </style>
+</head>
+<body>
+
+    <!-- 实践知识点：
+            事件双向绑定
+            数组遍历findIndex()
+            数组遍历array.forEach(function(){}) -->
+
+    <div id="main">
+        <table>
+            <tr>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>发布时间</td>
+                <td>操作</td>
+            </tr>
+            
+            <!-- 设置id值是唯一的 -->
+            <!-- <tr v-for="student in list" :key="student.id"> -->
+            <!-- 搜索     -->
+            <tr v-for="student in search(searchText)" :key="student.id">
+                <td v-text="student.id"></td>
+                <td v-text="student.name"></td>
+                <td v-text="student.time"></td>
+                <!-- 删除事件以id为准，有因为这里a标签是用于删除，不需要跳转，所以消除a标签的默认跳转事件 -->
+                <td><a href="#" @click.prevent="del(student.id)">删除</a></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" placeholder="请输入学号" class="text" v-model="id"></td>
+                <td><input type="text" placeholder="请输入姓名" class="text" v-model="name"></td>
+                <td><input type="text" placeholder="搜素姓名" class="text" v-model="searchText"></td>
+                <td><input type="button" value="新增" class="btn" @click="addBtn"></td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                // 初始数据
+                list:[
+                    {id:1,name:'小明',time:'2018-12-3'},
+                    {id:2,name:'小红',time:'2018-12-3'},
+                    {id:3,name:'小李',time:'2018-12-3'},
+                    {id:4,name:'小张',time:'2018-12-3'},
+                    {id:5,name:'小周',time:'2018-12-3'}
+                ],
+                // 新增学号和姓名
+                id:'',
+                name:'',
+                // 搜索内容
+                searchText:''
+            },
+            methods:{
+                // 增加学生信息
+                addBtn:function(){
+                    // 发布事件
+                    var Time = new Date();
+                    var month = Time.getMonth()+1;
+                    var nowTime = Time.getFullYear()+'-'+month+'-'+Time.getDate();
+                    // 获取data中数据需要this
+                    var newInfo = {id:this.id,name:this.name,time:nowTime};
+                    // 这里想判断一下输入存在的学号会提示错误，怎么办？
+                    this.list.push(newInfo);
+                    this.id='';
+                    this.name='';
+                },
+                // 删除
+                del:function(id){
+                    // findIndex() 方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置。
+                    // findIndex() 方法为数组中的每个元素都调用一次函数执行：
+                    //     当数组中的元素在测试条件时返回 true 时, findIndex() 返回符合条件的元素的索引位置，之后的值不会再调用执行函数。
+                    //     如果没有符合条件的元素返回 -1
+                    var index = this.list.findIndex(function(stu){
+                        if(stu.id==id){
+                            return true;
+                        }
+                    });
+                    // splice(index,howmany),删除指定位置的项目数量，会修改原本数组
+                    this.list.splice(index,1);
+                },
+                // 搜索
+                search:function(searchText){
+                    var newList=[];
+                    this.list.forEach(function(stu){
+                        if(stu.name.indexOf(searchText) !== -1){
+                            newList.push(stu);
+                        }
+                    })
+                    return newList;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

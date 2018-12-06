@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue全局组件</title>
+</head>
+<body>
+    <!-- 知识点：组件就是功能模块
+        全局组件：实例外声明定义的
+        私有组件：实例中声明定义的 -->
+
+    <div id="main">
+
+        <!-- 使用组件 -->
+        <demo></demo>
+        <demo1></demo1>
+        <demo2></demo2>
+
+    </div>
+
+    <template id="packagecontent">
+        <!-- 此处增加一个div是因为只能有一个根元素，不然只能显示h3元素 -->
+        <div style="border: 1px solid black">
+            <h3>创建组件的第三种方式</h3>
+            <p>代码量大的情况下就很便捷呀</p>
+            <span>毕竟有代码提示啊</span>
+        </div>
+    </template>
+
+
+
+    <script src="vue.js"></script>
+    <script>
+        // 全局组件
+// 创建组件的第一种方式
+        var p1 = Vue.extend({
+            template:'<h1>创建组件的第一种方式</h1><h2>同样没有一个根元素时只能显示h1元素</h2>'
+        })
+        // 试验得知：定义的组件名不能含大写字母，特殊字符
+        Vue.component('demo',p1)
+
+// 创建组件的第二种方式(字面量形式)
+        Vue.component('demo1',{
+            template:'<div><h2>创建组件的第二种方式</h2><h3>有一个根元素就可以了,但显然写起来很麻烦</h3></div>'
+        })
+
+        // 以上两种方式的创建都是基于字符串，没有语法提示，在代码量增大的情况下不友好
+// 创建组件的第三种方式
+        Vue.component('demo2',{
+            template:'#packagecontent'
+        })
+
+        var vm = new Vue({
+            el:'#main',
+            data:{
+
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

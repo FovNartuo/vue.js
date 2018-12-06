@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>显示多个组件</title>
+</head>
+<body>
+    <div id="main">
+        <!-- 页面中同时显示多个组件，则需要多个router-view标签 -->
+        <router-view></router-view>
+        <router-view name="show1"></router-view>
+        <router-view name="show2"></router-view>
+    </div>
+    
+    <template id="con1">
+        <h1>父组件</h1>
+    </template>
+    <template id="con2">
+        <h1>第一个子组件</h1>
+    </template>
+    <template id="con3">
+        <h1>第二个子组件</h1>
+    </template>
+    
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script>
+        var obj1={
+            template:'#con1'
+        }
+        var obj2={
+            template:'#con2'
+        }
+        var obj3={
+            template:'#con3'
+        }
+
+        var routeObj = new VueRouter({
+            routes:[
+                // 匹配规则
+                {   
+                    path:'/',components:{
+                        default:obj1,   //父组件默认显示
+                        show1:obj2,     //第一个子组件
+                        show2:obj3      //第二个子组件
+                    }
+                }
+            ]
+        })
+
+        var vm = new Vue({
+            el:'#main',
+            data:{
+
+            },
+            methods:{
+
+            },
+            router:routeObj
+        })
+    </script>
+</body>
+</html>

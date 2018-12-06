@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue过渡动画</title>
+    <style>
+        .content{width: 100px;height: 100px;background: red;margin-top: 20px;}
+        /* 设置过渡动画样式 */
+
+        /* .v-enter,.v-leave-to{opacity: 0;transform: translateX(300px);}
+        .v-enter-active,.v-leave-active{transition: all 2s ease;} */
+
+        /* 然而这样设置会出问题，有多个元素时会全部默认按照以上设置来过渡动画，那么想要多个元素不同动画怎么办呢？ */
+        /* name属性来区分不同元素 */
+        .t1-enter,.t1-leave-to{opacity: 0;transform: translateX(300px);}
+        .t1-enter-active,.t1-leave-active{transition: all 2s ease;}
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <input type="button" value="显示/隐藏div" @click="btn">
+        <!-- 第一步用<transition>标签包裹需要过渡动画的元素 -->
+        <transition name="t1">
+            <div class="content" v-if="seen"></div>
+        </transition>
+
+        <transition>
+            <div class="box" v-if="seen">第二个元素要和第一个元素动画不一样</div>
+        </transition>
+        
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                // 键：值形式
+                seen:true
+            },
+            methods:{
+                btn:function(){
+                    this.seen = !this.seen;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

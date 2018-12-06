@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue使用CSS样式</title>
+    <style>
+        .a1{font-size: 50px;}
+        .a2{color: red;}
+        .a3{background-color: blue;}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <!-- 普通的html增添样式 -->
+        <h1 class="a1 a2 a3" v-text="msg"></h1>
+        <!-- Vue使用CSS的规则 -->
+        <h1 v-bind:class="['a1','a2','a3']" v-text="msg"></h1>
+        <!-- 明明可以用普通的html增添样式，为什么需要vue使用css -->
+        <!-- data中的定义的flag来控制是否显示a3样式 -->
+        <!-- 注意：对象中a3不能加引号 -->
+        <h1 :class="['a1','a2','{a3:flag}']" v-text="msg"></h1>
+        <h1 :class="style" v-text="msg"></h1>
+
+        <hr><br>
+        <!-- CSS内嵌样式 -->
+        <!-- 以前 -->
+        <h1 style="font-size: 50px;color: red;" v-text="msg"></h1>
+        <!-- Vue,通过绑定style属性 -->
+        <h1 :style="[a4,a5]">{{msg}}</h1>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                msg:'Hello World!',
+                flag:false,
+                style:{a1:true,a2:true,a3:false},
+                
+                // 样式中有含-符号，需要引号括起来
+                a4:{color:'red','font-size':'50px'},
+                a5:{'background-color':'blue'}
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

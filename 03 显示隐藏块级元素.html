@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if指令和v-show指令</title>
+    <style>
+        #box{width: 100px;height: 100px;background: red;margin-top: 10px;}
+    </style>
+</head>
+<body>
+    <!-- 无效 -->
+    <!-- <input type="button" value="显示/隐藏" @click="btn">
+    <div id="box" v-if="seen"></div>
+
+    <script src="vue.js"></script>
+    <script>
+    var vm = new Vue({
+        el:'#box',
+        data:{
+            seen:true
+        },
+        methods:{
+            btn:function(){
+                this.seen = !this.seen;
+            }
+        }
+    })
+    </script> -->
+
+    <div id="main">
+        <input type="button" value="显示/隐藏" @click="btn">
+        <!-- v-if指令的实现是通过注释 -->
+        <div id="box" v-if="seen"></div>
+        <!-- v-show指令的实现是通过改变display值 -->
+        <div id="box" v-show="seen"></div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+    var vm = new Vue({
+        el:'#main',
+        data:{
+            seen:true
+        },
+        methods:{
+            btn:function(){
+                this.seen = !this.seen;
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

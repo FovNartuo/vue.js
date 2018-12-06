@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件中data数据的传值</title>
+</head>
+<body>
+    <div id="main">
+        <!-- 绑定父组件 -->
+        <demo :msg="parentmsg"></demo>
+    </div>
+
+    <template id="content">
+        <!-- 直接调用父组件会报错 -->
+        <h1>私有组件--{{sonmsg}}---{{msg}}</h1>
+    </template>
+
+    <script src="vue.js"></script>
+    <script>
+        // 组件对象
+        var obj = {
+            template:'#content',
+            // 使用props定义msg，数组形式
+            props:['msg'],
+            data:function(){
+                return{
+                    sonmsg:'组件中数据'
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                parentmsg:'实例中数据'
+            },
+            methods:{
+
+            },
+
+            // 私有组件
+            components:{
+                demo:obj
+            }
+        })
+    </script>
+</body>
+</html>

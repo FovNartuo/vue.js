@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue使用animate第三方类库过渡动画</title>
+    <link rel="stylesheet" href="animate.css">
+    <style>
+        .content{width: 100px;height: 100px;background: red;margin-top: 20px;}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <input type="button" value="animate过渡动画" @click="btn">
+
+        <!--        进入的样式           animated 类库中样式名 离开的样式           animated 类库中样式名 -->
+        <transition enter-active-class="animated rotateIn" leave-active-class="animated rotateOut">
+            <div class="content" v-if="seen"></div>
+        </transition>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                seen:true
+            },
+            methods:{
+                btn:function(){
+                    this.seen = !this.seen
+                }
+            }
+        })
+    </script>
+</body>
+</html>

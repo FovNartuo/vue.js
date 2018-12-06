@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绑定属性和事件</title>
+</head>
+<body>
+    <div id="main">
+        <!-- 绑定属性 -->
+        <!-- v-bind:属性   用来绑定属性（title属性，alt属性...） -->
+        <h1 v-bind:title="title_h1" v-text="msg"></h1>
+        <!-- 简写形式 -->
+        <h1 :title="title_h1" v-text="msg"></h1>
+        <hr>
+        <!-- 绑定事件 -->
+        <!-- v-on 指令绑定事件 -->
+        <input type="button" value="点击" v-on:click="f1">
+        <!-- 简写形式 -->
+        <input type="button" value="点击" @click="f1">
+        
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                msg:'Hello World!',
+                title_h1:'这是h1的标题'
+            },
+            methods:{
+                f1:function(){
+                    alert('Hello Vue!'),
+                    // 获取data中定义的数据，需用到this
+                    console.log(this.msg)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

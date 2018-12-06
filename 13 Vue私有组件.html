@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue私有组件</title>
+</head>
+<body>
+
+    <!-- 为何要创建私有组件？
+    因为不一定只会有一个vue实例，全局组件能够应用到所有实例中 -->
+
+    <div id="main">
+        <demo></demo>
+    </div>
+
+    <!-- 无法访问main中的vue实例的私有组件 -->
+    <div id="app">
+        <demo></demo>
+    </div>
+
+    <template id="content">
+        <div>
+            <!-- 使用组件中data数据 -->
+            <h1>私有组件---{{msg}}</h1>
+            <input type="button" value="点击" @click="btn">
+        </div>
+    </template>
+
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+
+            },
+            methods:{
+
+            },
+
+            // 私有组件
+            // 这里相较于全局组件少了Vue,多了一个s
+            components:{
+                // 对象是键值对形式，值中仍然和全局组件一样有三种写法
+                demo:{
+                    template:'#content',
+
+                    // 组件中的data数据，这里和实例中的data区别在于data是函数形式，返回对象
+                    data:function(){
+                        return{
+                            msg:'组件中的data数据'
+                        }
+                    },
+                    // 组件中的方法
+                    methods:{
+                        btn:function(){
+                            console.log("组件中的方法")
+                        }
+                    }
+                }
+            }
+        })
+
+        var app = new Vue({
+            el:'#app',
+            data:{
+
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

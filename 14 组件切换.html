@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue中组件的切换</title>
+    <style>
+        .v-enter,.v-leave-to{opacity: 0;transform: translateX(300px);}
+        .v-enter-active,.v-leave-active{transition: all 2s ease;}
+    </style>
+</head>
+<body>
+    <!-- 实现tabs切换的效果 -->
+
+    <div id="main">
+        <a href="#" @click.prevent="name='demo1'">1组件1</a>
+        <a href="#" @click.prevent="name='demo2'">2组件2</a>
+        <a href="#" @click.prevent="name='demo3'">2组件2</a>
+
+        <!-- 可以增加一个动画效果 -->
+        <!-- 但这有一个问题，动画的进入和离开是同时的，占据两行，mode属性规定先进还是先出 -->
+        <transition mode="out-in">
+            <!-- 显示组件 -->
+            <component :is="name"></component>
+        </transition>
+    </div>
+
+    
+
+    <script src="vue.js"></script>
+    <script>
+        // 组件一：
+        Vue.component('demo1',{
+            template:'<h1>组件一</h1>'
+        })
+
+        // 组件二：
+        Vue.component('demo2',{
+            template:'<h1>组件二</h1>'
+        })
+
+        // 组件三：
+        Vue.component('demo3',{
+            template:'<h1>组件三</h1>'
+        })
+
+
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                name:'demo1'
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

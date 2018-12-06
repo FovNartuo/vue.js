@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端路由</title>
+</head>
+<body>
+
+    <!-- 知识点：
+    路由分为前端路由和后端路由
+    前端路由主要是通过url中的hash来实现页面间的跳转
+    它的功能就是进行不同组件间的切换 -->
+
+    <div id="main">
+        <!-- tabs切换效果，路由的一个基本用法 -->
+        <!-- 用a标签切换组件，实则修改url,观察url变化 -->
+        <a href="#/obj1">1组件1</a>
+        <a href="#/obj2">2组件2</a>
+        <hr>
+
+        <!-- vue提供了切换组件的标签 -->
+        <!-- 路由传参 -->
+        <router-link to="/obj1?id=1">1组件1</router-link>
+        <router-link to="/obj2">2组件2</router-link>
+
+        <!-- 显示组件 -->
+        <router-view></router-view>
+    </div>
+
+    <template id="con1">
+        <!-- 获取url中传入的参数 -->
+        <h1>组件一---{{$route.query}}</h1>
+    </template>
+    <template id="con2">
+        <h1>组件二</h1>
+    </template>
+
+    <script src="vue.js"></script>
+    <!-- 第一步：引入路由 -->
+    <script src="vue-router.js"></script>
+    <script>
+// 第二步：创建组件
+        var obj1={
+            template:'#con1'
+        }
+
+        var obj2={
+            template:'#con2'
+        }
+
+// 第三步：创建路由对象
+        var routerObj = new VueRouter({
+            // 第四步：创建匹配规则
+            routes:[
+                // 匹配的第一个规则：路径
+                {path:'/',redirect:'/obj1'},    //初始状态根目录跳转到obj1下，不然就是空白状态
+                {path:'/obj1',component:obj1},
+                {path:'/obj2',component:obj2},
+            ]
+        })
+
+
+
+        var vm = new Vue({
+            el:'#main',
+            data:{
+
+            },
+            methods:{
+
+            },
+
+            // 组件对象都已经创建，私有组件中应该在此处使用components来注册一下组件
+            // 然而这里讨论的是路由，就需要引入路由的js函数
+
+            // 第五步：创建的路由对象挂载到vm实例中
+            router:routerObj
+
+        })
+    </script>
+</body>
+</html>
