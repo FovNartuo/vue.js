@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue实例</title>
+		<script src="./vue20190225.js"></script>
+	</head>
+	<body>
+		<div id="root">
+			<div @click="clickItem">
+				{{message}}	
+			</div>
+			<item></item>
+		</div>
+		
+		<script>
+			Vue.component("item",{
+				template:'<div>Hello Item</div>'
+			})
+			
+			var vm = new Vue({
+				el:'#root',
+				data:{
+					message:'Hello World'
+				},
+				methods:{
+					clickItem:function(){
+						alert('click')
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

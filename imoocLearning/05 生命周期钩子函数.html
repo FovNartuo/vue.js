@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue生命周期钩子函数</title>
+		<script src="vue20190225.js"></script>
+	</head>
+	<body>
+		<div id="app">Hello World</div>
+		
+		<script>
+//			生命周期函数就是Vue实例在某个时间点会自动执行的函数
+			var vm = new Vue({
+				el:'#app',
+				beforeCreate:function(){
+					console.log("beforeCreate")
+				}
+			})
+		</script>
+	</body>
+</html>

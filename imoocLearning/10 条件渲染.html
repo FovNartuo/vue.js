@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue中条件渲染</title>
+		<script src="./Vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div v-for="(item,key,index) of userInfo">
+				{{index}}--{{key}}--{{item}}
+			</div>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					userInfo:{
+						name:"bert",
+						age:25,
+						gender:"male",
+						salary:"secert"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
