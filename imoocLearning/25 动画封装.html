@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue中动画封装</title>
+		<script src="vue20190225.js"></script>
+	</head>
+	<body>
+		<div id="root">
+			<fade :show="show">
+				<div>Hello World</div>
+			</fade>
+			<button @click="handleBtnClick">Toggle</button>
+		</div>
+		<script>
+			Vue.component('fade',{
+				props:['show'],
+				template:`
+					<transition @before-enter="handleBeforeEnter"
+						@enter="handleEnter">
+						<slot v-if="show"></slot>
+					</transition>
+				`,
+				methods:{
+					handleBeforeEnter:function(el){
+						el.style.color="red"
+					},
+					handleEnter:function(el,done){
+						setTimeout(()=>{
+							el.style.color="green";
+							done();
+						},2000)
+					}
+				}
+			})
+			
+			var vm = new Vue({
+				el:'#root',
+				data:{
+					show:true
+				},
+				methods:{
+					handleBtnClick:function(){
+						this.show=!this.show
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
